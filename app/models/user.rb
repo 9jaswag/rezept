@@ -29,6 +29,8 @@ class User < ApplicationRecord
   before_save { self.username = username.downcase }
   before_create :create_activation_digest
 
+  has_many :recipis, foreign_key: :owner_id
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   validates :username, presence: true, length: { maximum: 15 }, uniqueness: true
