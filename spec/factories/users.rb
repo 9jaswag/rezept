@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :user do
-    username { "MyString" }
-    email { "MyString" }
-    password_digest { "MyString" }
-    reset_digest { "MyString" }
-    reset_time { "2018-10-22 15:47:06" }
-    activation_digest { "MyString" }
+    username { Faker::Name.unique.first_name[1..15] }
+    email { Faker::Internet.unique.email }
+    password_digest { Faker::Crypto.md5 }
+    reset_digest { Faker::Crypto.md5 }
+    reset_time { Time.zone.now }
+    activation_digest { Faker::Crypto.md5 }
     activated { false }
-    activated_time { "2018-10-22 15:47:06" }
+    activated_time { Time.zone.now }
     is_admin { false }
   end
 end
