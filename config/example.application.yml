@@ -3,6 +3,7 @@ RECIPE_DATABASE: 'development database'
 RECIPE-API_DATABASE_HOST: 'host'
 RECIPE_DATABASE_USER: 'database user'
 RECIPE_DATABASE_PASSWORD: 'database user password'
+SECRET_KEY_BASE: 'secret string or  hash'
 
 test:
   RECIPE_DATABASE: 'test database'
