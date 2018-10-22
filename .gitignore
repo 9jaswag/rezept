@@ -28,3 +28,6 @@
 # Ignore OSx generated files
 .DS_Store
 .idea/
+
+# Ignore coverage files
+coverage
