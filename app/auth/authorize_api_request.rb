@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthorizeApiRequest
   def initialize(headers = {})
     @headers = headers

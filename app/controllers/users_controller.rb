@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   skip_before_action :authorize_request, only: %i[create login edit update]
   def create
     user = User.create!(user_params)
     if user.save
       user.send_activation_email
-      message = "Signup successful! Activation link sent to email."
+      message = 'Signup successful! Activation link sent to email.'
       json_response(message, :created)
     else
       render json: user.errors, status: :bad
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
   def edit
     user = User.find_by!(email: params[:email])
     user.activate_user(params[:token])
-    message = "Account activation successful! Please log in"
+    message = 'Account activation successful! Please log in'
     json_response(message, :created)
   end
 
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
     user.password_reset_expired?
     user.update!(reset_digest: nil, reset_time: nil) if user.update!(reset_params)
   end
-  
+
   def reset
     user = User.find_by!(email: params[:email])
     user.create_reset_digest

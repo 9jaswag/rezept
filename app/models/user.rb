@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -72,13 +74,13 @@ class User < ApplicationRecord
 
   # activate user account
   def activate_user(token)
-    unless self && !self.activated && self.authenticated?(:activation, token)
+    unless self && !activated && authenticated?(:activation, token)
       raise(
         ExceptionHandler::BadRequest,
         'Account activation failed!'
       )
     end
-    self.activate
+    activate
     true
   end
 
