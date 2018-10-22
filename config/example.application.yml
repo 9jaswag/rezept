@@ -1,0 +1,11 @@
+# Add configuration values here, as shown below.
+RECIPE_DATABASE: 'development database'
+RECIPE-API_DATABASE_HOST: 'host'
+RECIPE_DATABASE_USER: 'database user'
+RECIPE_DATABASE_PASSWORD: 'database user password'
+
+test:
+  RECIPE_DATABASE: 'test database'
+
+production:
+  RECIPE_DATABASE: 'production database'
