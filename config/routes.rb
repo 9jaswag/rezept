@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   namespace :v1 do
-    resources :recipis, except: %i[destroy update] do
-      delete '/user/:id' => 'recipes#destroy', as: 'delete'
-      patch '/user/:id' => 'recipes#update', as: 'update'
-    end
+    resources :recipis
   end
   post '/signup', to: 'users#create'
   get '/activate/:token', to: 'users#edit', as: 'activate'
