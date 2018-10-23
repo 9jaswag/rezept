@@ -29,7 +29,7 @@ class User < ApplicationRecord
   before_save { self.username = username.downcase }
   before_create :create_activation_digest
 
-  has_many :recipis, foreign_key: :owner_id
+  has_many :recipis, foreign_key: :owner_id, class_name: 'Recipi'
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
