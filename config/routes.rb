@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  namespace :v1 do
+  scope module: :v1, constraints: ApiVersion.new('v1', true) do
     resources :recipis
   end
   post '/signup', to: 'users#create'
