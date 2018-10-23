@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     user = User.find_by!(email: params[:email])
     user.activate_user(params[:token])
     message = 'Account activation successful! Please log in'
-    json_response(message, :created)
+    json_response(message, :ok)
   end
 
   def update
