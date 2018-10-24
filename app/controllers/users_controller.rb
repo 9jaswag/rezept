@@ -2,6 +2,8 @@
 
 class UsersController < ApplicationController
   skip_before_action :authorize_request, only: %i[create login edit update]
+  before_action :find_user, only: %i[edit update reset]
+
   def create
     user = User.create!(user_params)
     if user.save
@@ -15,24 +17,21 @@ class UsersController < ApplicationController
 
   # activate a user
   def edit
-    user = User.find_by!(email: params[:email])
-    user.activate_user(params[:token])
+    @user.activate_user(params[:token])
     response = { message: 'Account activation successful! Please log in' }
     json_response(response)
   end
 
   def update
-    user = User.find_by!(email: params[:email])
-    user.password_reset_expired?
-    user.update!(reset_digest: nil, reset_time: nil) if user.update!(reset_params)
+    @user.password_reset_expired?
+    @user.update!(reset_digest: nil, reset_time: nil) if @user.update!(reset_params)
     response = { message: 'Password reset successful! Please log in' }
     json_response(response)
   end
 
   def reset
-    user = User.find_by!(email: params[:email])
-    user.create_reset_digest
-    user.send_password_reset_email
+    @user.create_reset_digest
+    @user.send_password_reset_email
     response = { message: 'Check your email for a password reset link' }
     json_response(response)
   end
@@ -56,5 +55,9 @@ class UsersController < ApplicationController
 
   def reset_params
     params.permit(:password, :password_confirmation)
+  end
+
+  def find_user
+    @user ||= User.find_by!(email: params[:email])
   end
 end
