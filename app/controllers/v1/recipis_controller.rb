@@ -5,27 +5,27 @@ class V1::RecipisController < ApplicationController
   def index
     recipi = Recipi.all.paginate(page: params[:page], per_page: @per_page)
     if recipi
-      render json: recipi, status: :ok
+      json_response(recipi)
     else
-      render json: recipi.errors
+      json_response(recipi.errors, :bad)
     end
   end
 
   def create
     recipi = Recipi.create!(recipi_params)
     if recipi
-      render json: recipi, status: :created
+      json_response(recipi, :created)
     else
-      render json: recipi.errors, status: :bad
+      json_response(recipi.errors, :unprocessable_entity)
     end
   end
 
   def show
     recipi = Recipi.find(params[:id])
     if recipi
-      render json: recipi
+      json_response(recipi)
     else
-      render json: recipi.errors, status: :bad
+      json_response(recipi.errors, :bad)
     end
   end
 
@@ -36,7 +36,7 @@ class V1::RecipisController < ApplicationController
   def update
     @recipi.update!(recipi_params)
     @recipi.image.attach(params[:image])
-    render json: @recipi
+    json_response(@recipi)
   end
 
   private
